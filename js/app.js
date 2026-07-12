@@ -1,49 +1,6 @@
 
 // Data stores
 let transactions = [];
-let rules = [
-  { keyword: "NAIVAS", category: "Food|Groceries" },
-  { keyword: "KPLC", category: "Bills|Electricity" },
-  { keyword: "SALARY", category: "Income|Salary" },
-  { keyword: "SHELL", category: "Transport|Fuel" }
-];
-let pieChart, barChart;
-
-
-function addRule() {
-  const keyword = document.getElementById('ruleKeyword').value.toUpperCase();
-  const category = document.getElementById('ruleCategory').value;
-  if (!keyword) return;
-  rules.push({ keyword, category });
-  document.getElementById('ruleKeyword').value = '';
-  renderRules();
-}
-
-function renderRules() {
-  const container = document.getElementById('rulesContainer');
-  container.innerHTML = rules.map(r =>
-    `<div class="badge">If contains "${r.keyword}" → ${r.category.replace('|', ' > ')}</div>`
-  ).join(' ');
-}
-
-function applyRules() {
-  transactions.forEach(tx => {
-    for (let rule of rules) {
-      if (tx.recipient.toUpperCase().includes(rule.keyword)) {
-        const [cat, subcat] = rule.category.split('|');
-        tx.category = cat;
-        tx.subcategory = subcat;
-        break;
-      }
-    }
-    if (!tx.category) {
-      tx.category = tx.type === 'income'? 'Income' : 'Uncategorized';
-      tx.subcategory = 'Other';
-    }
-  });
-  renderTransactions();
-  updateDashboard();
-}
 
 function renderTransactions() {
   const tbody = document.querySelector('#txTable tbody');
