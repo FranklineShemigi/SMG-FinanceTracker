@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMG Finance Tracker</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+  <h1>SMG FINANCE TRACKER</h1>
+
+  <div class="card">
+    <h2>1. IMPORT M-PESA MESSAGES</h2>
+    <textarea id="smsInput" rows="6" placeholder="Paste M-PESA messages here. One per line.&#10;Example: NB38XN4G Confirmed. Ksh2,500.00 paid to NAIVAS SUPERMARKET on 12/5/25 at 7:23 PM..."></textarea>
+    <button onclick="parseSMS()">Parse Messages</button>
+    <button onclick="loadSample()">Load Sample Data</button>
+  </div>
+
+  <div class="card">
+    <h2>2. AUTO-CATEGORIZE RULES</h2>
+    <div id="rulesContainer"></div>
+    <div class="rule-item">
+      <input id="ruleKeyword" placeholder="Keyword: e.g NAIVAS">
+      <select id="ruleCategory">
+        <option value="Food|Groceries">Food > Groceries</option>
+        <option value="Bills|Electricity">Bills > Electricity</option>
+        <option value="Transport|Fuel">Transport > Fuel</option>
+        <option value="Income|Salary">Income > Salary</option>
+      </select>
+      <button onclick="addRule()">Add Rule</button>
+    </div>
+    <button onclick="applyRules()">Apply Rules to All</button>
+  </div>
+
+  <div class="card">
+    <h2>3. DASHBOARD</h2>
+    <div class="stats">
+      <div class="stat-box">
+        <h3>TOTAL INCOME</h3>
+        <p class="income" id="totalIncome">Ksh 0</p>
+      </div>
+      <div class="stat-box">
+        <h3>TOTAL EXPENSE</h3>
+        <p class="expense" id="totalExpense">Ksh 0</p>
+      </div>
+      <div class="stat-box">
+        <h3>BALANCE</h3>
+        <p id="balance">Ksh 0</p>
+      </div>
+    </div>
+    <div class="grid">
+      <div><canvas id="pieChart"></canvas></div>
+      <div><canvas id="barChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>4. TRANSACTIONS</h2>
+    <table id="txTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Recipient</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>5. COMPOUND INTEREST CALCULATOR</h2>
+    <div class="grid">
+      <input id="principal" type="number" placeholder="Principal Ksh">
+      <input id="rate" type="number" placeholder="Annual Rate %">
+      <input id="years" type="number" placeholder="Years">
+      <input id="compound" type="number" placeholder="Times per year" value="12">
+    </div>
+    <button onclick="calcCompound()">Calculate</button>
+    <p id="compoundResult" style="margin-top:16px; font-size:18px;"></p>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
