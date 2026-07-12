@@ -32,6 +32,5 @@ function updateDashboard() {
 
     document.getElementById("balance").textContent =
         `Ksh ${(income - expense).toLocaleString()}`;
-
-    updateCharts();
+    
 }
