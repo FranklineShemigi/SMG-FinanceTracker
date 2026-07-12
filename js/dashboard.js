@@ -1,4 +1,4 @@
-function renderTransactions() {
+function renderTransactions(data=transactions) {
 
     const tbody = document.querySelector("#txTable tbody");
 
@@ -14,7 +14,7 @@ function renderTransactions() {
 
 }
 
-function updateDashboard() {
+function updateDashboard(data=transactions) {
 
     const income = transactions
         .filter(tx => tx.type === "income")
