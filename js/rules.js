@@ -64,7 +64,7 @@ function applyRules() {
     }
 
   });
-
+  saveTransactions();
   renderTransactions();
   updateDashboard();
 

@@ -35,7 +35,8 @@ function parseSMS() {
   const input = document.getElementById('smsInput').value;
   const lines = input.split('\n').filter(l => l.trim());
   transactions = lines.map(parseMPesaMessage);
-  applyRules();
-  renderTransactions();
-  updateDashboard();
+applyRules();
+saveTransactions();
+renderTransactions();
+updateDashboard();
 }

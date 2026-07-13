@@ -14,11 +14,14 @@ function addManualTransaction() {
     const recipient =
         document.getElementById("manualRecipient").value;
 
+
     const category =
         document.getElementById("manualCategory").value;
 
+
     const subcategory =
         document.getElementById("manualSubcategory").value;
+
 
     if (!date || !amount || !recipient) {
 
@@ -27,6 +30,7 @@ function addManualTransaction() {
         return;
 
     }
+
 
     transactions.push({
 
@@ -40,17 +44,23 @@ function addManualTransaction() {
 
         recipient,
 
-        category,
+        category: category || "Uncategorized",
 
-        subcategory,
+        subcategory: subcategory || "Other",
 
         raw: "Manual Entry"
 
     });
 
+
+    saveTransactions();
+
     renderTransactions();
 
     updateDashboard();
+
+    updateCharts();
+
 
     document.getElementById("manualForm").reset();
 

@@ -1,19 +1,28 @@
 let pieChart = null;
 let barChart = null;
 
-function updateCharts() {
 
-    drawPieChart();
+function updateCharts(data = transactions) {
 
-    drawBarChart();
+    drawPieChart(data);
+
+    drawBarChart(data);
 
 }
 
-function drawPieChart() {
+
+
+function drawPieChart(data = transactions) {
+
+    const canvas = document.getElementById("pieChart");
+
+    if (!canvas) return;
+
 
     const byCategory = {};
 
-    transactions
+
+    data
         .filter(tx => tx.type === "expense")
         .forEach(tx => {
 
@@ -22,15 +31,20 @@ function drawPieChart() {
 
         });
 
+
+
     if (pieChart) {
 
         pieChart.destroy();
 
     }
 
+
+
     pieChart = new Chart(
-        document.getElementById("pieChart"),
+        canvas,
         {
+
             type: "pie",
 
             data: {
@@ -38,6 +52,7 @@ function drawPieChart() {
                 labels: Object.keys(byCategory),
 
                 datasets: [{
+
                     data: Object.values(byCategory),
 
                     backgroundColor: [
@@ -47,8 +62,11 @@ function drawPieChart() {
                         "#999999",
                         "#CCCCCC"
                     ]
+
                 }]
+
             },
+
 
             options: {
 
@@ -74,13 +92,23 @@ function drawPieChart() {
 
 }
 
-function drawBarChart() {
+
+
+
+function drawBarChart(data = transactions) {
+
+    const canvas = document.getElementById("barChart");
+
+    if (!canvas) return;
+
 
     const byMonth = {};
 
-    transactions.forEach(tx => {
+
+    data.forEach(tx => {
 
         const month = tx.date.slice(0, 7);
+
 
         byMonth[month] =
             (byMonth[month] || 0) +
@@ -90,21 +118,27 @@ function drawBarChart() {
 
     });
 
+
+
     if (barChart) {
 
         barChart.destroy();
 
     }
 
+
+
     barChart = new Chart(
-        document.getElementById("barChart"),
+        canvas,
         {
 
             type: "bar",
 
+
             data: {
 
                 labels: Object.keys(byMonth).sort(),
+
 
                 datasets: [{
 
@@ -115,11 +149,13 @@ function drawBarChart() {
                         .sort()
                         .map(month => byMonth[month]),
 
+
                     backgroundColor: "#E8E4DC"
 
                 }]
 
             },
+
 
             options: {
 
@@ -135,6 +171,7 @@ function drawBarChart() {
 
                     },
 
+
                     y: {
 
                         ticks: {
@@ -146,6 +183,7 @@ function drawBarChart() {
                     }
 
                 },
+
 
                 plugins: {
 
