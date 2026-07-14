@@ -11,9 +11,10 @@ function renderTransactions(data = transactions) {
             <td>${tx.category} > ${tx.subcategory}</td>
 
             <td>
-                <button onclick="deleteTransaction(${index})">
-                    Delete
-                </button>
+                <button class="delete-btn"
+                        onclick="deleteTransaction(${index})">
+                            Delete
+                 </button>
             </td>
         </tr>
     `).join("");
