@@ -15,11 +15,7 @@ Features
 - Export transactions to CSV
 - Compound interest calculator
 
-Technologies Used
-- HTML5
-- CSS3
-- JavaScript (Vanilla)
-- Chart.js
+
 
 Current Version
 Prototype v0.1.0
