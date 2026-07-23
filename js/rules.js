@@ -1,71 +1,110 @@
 // Default category rules
 let rules = [
-  { keyword: "NAIVAS", category: "Food|Groceries" },
-  { keyword: "KPLC", category: "Bills|Electricity" },
-  { keyword: "SALARY", category: "Income|Salary" },
-  { keyword: "SHELL", category: "Transport|Fuel" }
+    { keyword: "NAIVAS", category: "Food|Groceries" },
+    { keyword: "KPLC", category: "Bills|Electricity" },
+    { keyword: "SALARY", category: "Income|Salary" },
+    { keyword: "SHELL", category: "Transport|Fuel" }
 ];
 
 function addRule() {
-  const keyword = document.getElementById("ruleKeyword").value.toUpperCase();
-  const category = document.getElementById("ruleCategory").value;
 
-  if (!keyword) return;
+    const keyword =
+        document.getElementById("ruleKeyword")
+        .value
+        .toUpperCase()
+        .trim();
 
-  rules.push({ keyword, category });
+    const category =
+        document.getElementById("ruleCategory")
+        .value
+        .trim();
 
-  document.getElementById("ruleKeyword").value = "";
+    const subcategory =
+        document.getElementById("ruleSubcategory")
+        .value
+        .trim();
 
-  renderRules();
+    if (!keyword || !category || !subcategory) {
+
+        alert("Please fill in all fields.");
+
+        return;
+
+    }
+
+    rules.push({
+
+        keyword,
+        category: `${category}|${subcategory}`
+
+    });
+    
+    saveRules();
+
+    document.getElementById("ruleKeyword").value = "";
+    document.getElementById("ruleCategory").value = "";
+    document.getElementById("ruleSubcategory").value = "";
+
+    renderRules();
+
 }
 
 function renderRules() {
-  const container = document.getElementById("rulesContainer");
 
-  container.innerHTML = rules.map(rule =>
-    `<div class="badge">
-        If contains "${rule.keyword}" → ${rule.category.replace("|", " > ")}
-     </div>`
-  ).join(" ");
+    const container =
+        document.getElementById("rulesContainer");
+
+    container.innerHTML = rules.map(rule =>
+
+        `<div class="badge">
+            If contains "${rule.keyword}" → ${rule.category.replace("|", " > ")}
+        </div>`
+
+    ).join("");
+
 }
 
 function applyRules() {
 
-  transactions.forEach(transaction => {
+    transactions.forEach(transaction => {
 
-    for (const rule of rules) {
+        for (const rule of rules) {
 
-      if (
-        transaction.recipient
-          .toUpperCase()
-          .includes(rule.keyword)
-      ) {
+            if (
+                transaction.recipient
+                    .toUpperCase()
+                    .includes(rule.keyword)
+            ) {
 
-        const [category, subcategory] =
-          rule.category.split("|");
+                const [category, subcategory] =
+                    rule.category.split("|");
 
-        transaction.category = category;
-        transaction.subcategory = subcategory;
+                transaction.category = category;
+                transaction.subcategory = subcategory;
 
-        break;
-      }
+                break;
 
-    }
+            }
 
-    if (!transaction.category) {
+        }
 
-      transaction.category =
-        transaction.type === "income"
-          ? "Income"
-          : "Uncategorized";
+        if (!transaction.category) {
 
-      transaction.subcategory = "Other";
+            transaction.category =
+                transaction.type === "income"
+                    ? "Income"
+                    : "Uncategorized";
 
-    }
+            transaction.subcategory = "Other";
 
-  });
-  saveTransactions();
-  renderTransactions();
-  updateDashboard();
+        }
+
+    });
+
+    saveTransactions();
+
+    renderTransactions();
+
+    updateDashboard();
 
 }

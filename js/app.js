@@ -1,3 +1,4 @@
+loadRules();
 renderRules();
 loadTransactions();
 renderTransactions();
